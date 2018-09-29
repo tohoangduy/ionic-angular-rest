@@ -30,6 +30,7 @@ Before you started, this tasks should be accomplished:
   By default in the last version of Ionic 3 (when this tutorial created) it still using old Angular HTTP module. For this, we have to install a different module for the new Angular 4.3 HTTPClient. Angular use different module name for HTTP, so the developer can migrate to the new Angular 4.3 HTTPClient slowly because old HTTP module still can be used. For safe use with Ionic 3, update all '@angular' dependencies with the latest version.
   </p>
 
+```
 npm install @angular/common@latest --save
 npm install @angular/compiler@latest --save
 npm install @angular/compiler-cli@latest --save
@@ -38,11 +39,13 @@ npm install @angular/forms@latest --save
 npm install @angular/http@latest --save
 npm install @angular/platform-browser@latest --save
 npm install @angular/platform-browser-dynamic@latest --save
+```
 
 <h4><i>Notes: Angular 4.3 HTTPClient and HTTPClientModule modules get from '@angular/common' dependencies.</i></h4>
 
 <p>Now, your 'package.json' dependencies look like this.</p>
-<code>
+
+```javascript
 "dependencies": {
   "@angular/common": "^4.3.4",
   "@angular/compiler": "^4.3.4",
@@ -62,7 +65,8 @@ npm install @angular/platform-browser-dynamic@latest --save
   "sw-toolbox": "3.6.0",
   "zone.js": "0.8.12"
 },
-</code>
+```
+
 <p>Next, open and edit 'src/app/app.module.ts' then add this import.</p>
 
 <code>import { HttpClientModule } from '@angular/common/http';</code>
@@ -92,7 +96,8 @@ constructor(public http: HttpClient) {
 
 <code>apiUrl = 'https://jsonplaceholder.typicode.com';</code>
 <p>Add this functions after constructors.</p>
-<code>
+
+```javascript
 getUsers() {
   return new Promise(resolve => {
     this.http.get(this.apiUrl+'/users').subscribe(data => {
@@ -102,9 +107,11 @@ getUsers() {
     });
   });
 }
-</code>
+```
+
 <p>You can see the difference in getting data more simple than using the previous HTTP and it also added retry function if something happens with the request. Now, add again function to post new data.</p>
-<code>
+
+```javascript
 addUser(data) {
   return new Promise((resolve, reject) => {
     this.http.post(this.apiUrl+'/users', JSON.stringify(data))
@@ -115,10 +122,11 @@ addUser(data) {
       });
   });
 }
-</code>
+```
+
 <p>For posting data, still, use the same way as previously. If your REST API backend needs additional headers and URL params you can add them like this.</p>
 
-<code>
+```javascript
 this.http.post(this.apiUrl+'/users', JSON.stringify(data), {
     headers: new HttpHeaders().set('Authorization', 'my-auth-token'),
     params: new HttpParams().set('id', '3'),
@@ -128,7 +136,7 @@ this.http.post(this.apiUrl+'/users', JSON.stringify(data), {
   }, (err) => {
     reject(err);
   });
-</code>
+```
 
 <h2>4. Display Data in View</h2>
 <p>To displaying data in the view, open and edit `src/pages/home/home.ts` then add this import.</p>
@@ -142,7 +150,7 @@ this.http.post(this.apiUrl+'/users', JSON.stringify(data), {
 <code>users: any;</code>
 <p>Create a function below the constructor for calling the users from the provider then fill users variable.</p>
 
-<code>
+```javascript
 getUsers() {
     this.restProvider.getUsers()
     .then(data => {
@@ -150,18 +158,19 @@ getUsers() {
       console.log(this.users);
     });
   }
-</code>
+```
 
 <p>Now, call that function inside the constructor.</p>
 
-<code>
+```javascript
 constructor(public navCtrl: NavController, public restProvider: RestProvider) {
     this.getUsers();
   }
-</code>
+```
+
 <p>Then, open and edit 'src/pages/home/home.html' then replace '<ion-content>' and it's content using this.</p>
 
-<code>
+```xml
 <ion-content>
   <ion-list inset>
     <ion-item *ngFor="let user of users">
@@ -170,7 +179,8 @@ constructor(public navCtrl: NavController, public restProvider: RestProvider) {
     </ion-item>
   </ion-list>
 </ion-content>
-</code>
+```
+
 <p>Now, you can see the data on the browser like this.</p>
 
 <p>Ionic 3 Consuming REST API using New Angular 4.3 HttpClient - List of users</p>
@@ -181,7 +191,7 @@ constructor(public navCtrl: NavController, public restProvider: RestProvider) {
 <code>ionic g page adduser</code>
 <p>Open and edit 'src/pages/adduser/adduser.html' then replace '<ion-content>' contents with this.</p>
 
-<code>
+```xml
 <ion-content padding>
   <h2>Add User</h2>
   <form (ngSubmit)="saveUser()">
@@ -243,32 +253,42 @@ constructor(public navCtrl: NavController, public restProvider: RestProvider) {
     <button ion-button type="submit" block>Add User</button>
   </form>
 </ion-content>
-</code>
+```
+
 <p>Now, for the controller. Open and edit 'src/pages/adduser/adduser.ts' then add import of RestProvider.</p>
 
 <code>import { RestProvider } from '../../providers/rest/rest';</code>
 <p>Inject RestProvider in the constructor params.</p>
 
-<code>
+```javascript
 constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
 }
-</code>
+```
+
 <p>Then add this variable before the constructors.</p>
 
-<code>
+```javascript
 user = { name: '', username: '', email: '', phone: '', website: '', address: { street: '', suite: '', city: '', zipcode: '', geo: { lat: '', lng: '' } }, company: { name: '', bs: '', catchPhrase: '' }};
-</code>
+```
+
 <p>Next, add a function for saving or post the data from the form.</p>
 
-<code>
-saveUser() {
-  this.restapiService.saveUser(this.user).then((result) => {
-    console.log(result);
-  }, (err) => {
+```javascript
+this.restapiService.addUser(this.user).then((result) => {
+  console.log(result);
+  // alert("Add user success!"); //this code is a Javascript
+  // Code bellow is a ionic 3.9.2
+  this.alertController.create({
+      title: "Alert",
+      subTitle: 'Subtitle',
+      message: 'This is an alert message.',
+      buttons: ['OK']
+    }).present();
+  }, err => {
     console.log(err);
   });
-}
-</code>
+```
+
 <p>Don't forget to add button on 'home.html' that call 'adduser' page. Now, you can run again the Ionic 3 app and test receives or posts data.</p>
 
 <p>Above example just the basic of the new Angular 4.3 HTTPClient. There is more advanced feature comes with Angular 4.3 HTTPClient that will be covered another time in another tutorial.</p>
