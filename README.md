@@ -29,7 +29,7 @@ Before you started, this tasks should be accomplished:
 <p>
   By default in the last version of Ionic 3 (when this tutorial created) it still using old Angular HTTP module. For this, we have to install a different module for the new Angular 4.3 HTTPClient. Angular use different module name for HTTP, so the developer can migrate to the new Angular 4.3 HTTPClient slowly because old HTTP module still can be used. For safe use with Ionic 3, update all '@angular' dependencies with the latest version.
   </p>
-<code>
+
 npm install @angular/common@latest --save
 npm install @angular/compiler@latest --save
 npm install @angular/compiler-cli@latest --save
@@ -38,7 +38,7 @@ npm install @angular/forms@latest --save
 npm install @angular/http@latest --save
 npm install @angular/platform-browser@latest --save
 npm install @angular/platform-browser-dynamic@latest --save
-</code>
+
 <h4><i>Notes: Angular 4.3 HTTPClient and HTTPClientModule modules get from '@angular/common' dependencies.</i></h4>
 
 <p>Now, your 'package.json' dependencies look like this.</p>
