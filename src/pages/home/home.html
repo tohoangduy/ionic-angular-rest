@@ -1,14 +1,18 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic REST
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <!-- <ion-button>Add user</ion-button> -->
+  <button ion-button (click)="addUserPage()">Add user</button>
+  <ion-list inset>
+    <ion-item *ngFor="let user of users">
+      <h2>Username: {{user.name}}</h2>
+      <p>Email: {{user.email}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
