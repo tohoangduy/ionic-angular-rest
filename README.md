@@ -274,19 +274,21 @@ user = { name: '', username: '', email: '', phone: '', website: '', address: { s
 <p>Next, add a function for saving or post the data from the form.</p>
 
 ```javascript
-this.restapiService.addUser(this.user).then((result) => {
-  console.log(result);
-  // alert("Add user success!"); //this code is a Javascript
-  // Code bellow is a ionic 3.9.2
-  this.alertController.create({
-      title: "Alert",
-      subTitle: 'Subtitle',
-      message: 'This is an alert message.',
-      buttons: ['OK']
-    }).present();
-  }, err => {
-    console.log(err);
-  });
+saveUser() {
+    this.restProvider.addUser(this.user).then((result) => {
+      console.log(result);
+      // alert("Add user success!"); //this code is a Javascript
+      // Code bellow is a ionic 3.9.2
+      this.alertController.create({
+          title: "Alert",
+          subTitle: 'Subtitle',
+          message: 'Add user success!',
+          buttons: ['OK']
+        }).present();
+      }, err => {
+        console.log(err);
+      });
+  }
 ```
 
 <p>Don't forget to add button on 'home.html' that call 'adduser' page. Now, you can run again the Ionic 3 app and test receives or posts data.</p>
