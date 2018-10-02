@@ -294,3 +294,5 @@ saveUser() {
 <p>Don't forget to add button on 'home.html' that call 'adduser' page. Now, you can run again the Ionic 3 app and test receives or posts data.</p>
 
 <p>Above example just the basic of the new Angular 4.3 HTTPClient. There is more advanced feature comes with Angular 4.3 HTTPClient that will be covered another time in another tutorial.</p>
+
+Source link: https://www.djamware.com/post/59924f9080aca768e4d2b12e/ionic-3-consuming-rest-api-using-new-angular-43-httpclient
